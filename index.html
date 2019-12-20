@@ -1,0 +1,61 @@
+<html>
+  <header>
+    <title>Control Light</title>
+
+    <link rel="stylesheet" href="./styles.css" />
+  </header>
+
+  <body>
+    <div class="buttons">
+      <a id="btn_light_on" class="button1">Light ON</a>
+      <a id="btn_light_off" class="button2">Light OFF</a>
+    </div>
+    <div class="response-container">
+
+    </div>
+
+
+
+    <script>
+      var buttonLightON = document.getElementById("button1");
+      var buttonLightOFF = document.getElementById("button2");
+
+      buttonLightON.onclick = function()
+      {
+        Light(true);
+      }
+      buttonLightOFF.onclick = function()
+      {
+        Light(false);
+      }
+
+
+      function Light(b)
+      {
+        var http = new XMLHttpRequest();
+        var url = "light.php";
+        var params = "";
+        if(b == true)
+        {
+          params = "light=on"
+        }
+        else if(b == false)
+        {
+          params = "light=off"
+        }
+        http.open("POST", url, true);
+
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        http.onreadystatechange = function()
+        {
+            if(http.readyState == 4 && http.status == 200) {
+                document.querySelector('.response-container').innerHTML = http.responseText;
+                console.log(http.responseText);
+            }
+        }
+        http.send(params);
+      }
+    </script>
+  </body>
+</html>
