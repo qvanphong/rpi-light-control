@@ -11,49 +11,44 @@
       <a id="btn_light_off" class="button2">Light OFF</a>
     </div>
     <div class="response-container">
-
+      <form class="schedule_form">
+        First name:<br />
+        <input type="text" name="firstname" /><br />
+        Last name:<br />
+        <input type="text" name="lastname" />
+      </form>
     </div>
 
-
-
     <script>
-      var buttonLightON = document.getElementById("button1");
-      var buttonLightOFF = document.getElementById("button2");
+      var buttonLightON = document.getElementById('button1');
+      var buttonLightOFF = document.getElementById('button2');
 
-      buttonLightON.onclick = function()
-      {
+      buttonLightON.onclick = function() {
         Light(true);
-      }
-      buttonLightOFF.onclick = function()
-      {
+      };
+      buttonLightOFF.onclick = function() {
         Light(false);
-      }
+      };
 
-
-      function Light(b)
-      {
+      function Light(b) {
         var http = new XMLHttpRequest();
-        var url = "light.php";
-        var params = "";
-        if(b == true)
-        {
-          params = "light=on"
+        var url = 'light.php';
+        var params = '';
+        if (b == true) {
+          params = 'light=on';
+        } else if (b == false) {
+          params = 'light=off';
         }
-        else if(b == false)
-        {
-          params = "light=off"
-        }
-        http.open("POST", url, true);
+        http.open('POST', url, true);
 
-        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-        http.onreadystatechange = function()
-        {
-            if(http.readyState == 4 && http.status == 200) {
-                document.querySelector('.response-container').innerHTML = http.responseText;
-                console.log(http.responseText);
-            }
-        }
+        http.onreadystatechange = function() {
+          if (http.readyState == 4 && http.status == 200) {
+            document.querySelector('.response-container').innerHTML = http.responseText;
+            console.log(http.responseText);
+          }
+        };
         http.send(params);
       }
     </script>
