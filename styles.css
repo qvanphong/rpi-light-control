@@ -32,8 +32,9 @@ html .foot-wrapper .footer {
 }
 
 .buttons {
-  align-items: center;
-  width: 100%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
   height: 300px;
 }
 
