@@ -1,7 +1,7 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+/* @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 @import url(https://fonts.googleapis.com/css?family=Fira+Sans);
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
-@import url(https://fonts.googleapis.com/css?family=Droid+Sans);
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans); */
 body,
 html {
   margin: 0;
@@ -42,21 +42,22 @@ a {
   cursor: pointer;
   text-decoration: none;
   color: white;
-  width: 200px;
-  height: 100px;
+  width: 100px;
+  height: 50px;
   background: #f2385a;
   position: relative;
   margin: 30px;
   top: 30%;
-  padding: 16px;
+  padding: 8px;
   font-size: 50px;
   border-radius: 10px;
   box-shadow: 0px 15px 0px 0px #f02046, 0px 0px 20px 0px #bbb;
   transition: all 0.2s;
+  font-size: 36px;
 }
 
 a:active {
-  top: 108px;
+  top: 35%;
   box-shadow: 0px 7px 0px 0px #f02046;
 }
 
@@ -65,11 +66,17 @@ a:active {
 }
 
 .button2 {
-  background-color: #3498db;
-  box-shadow: 0px 15px 0px 0px #258cd1;
+  background-color: #303c44;
+  box-shadow: 0px 15px 0px 0px #161718;
+  color: white !important;
 }
 .button2:active {
-  box-shadow: 0px 7px 0px 0px #258cd1;
+  box-shadow: 0px 7px 0px 0px #161718;
 }
 
+.button3 {
+  color: white !important;
+  background-color: aqua;
+  box-shadow: 0px 15px 0px 0px rgb(0, 177, 177);
+}
 /*# sourceMappingURL=styles.css.map */

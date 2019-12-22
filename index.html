@@ -3,40 +3,64 @@
     <title>Control Light</title>
 
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./css/bootstrap.css" />
   </header>
 
   <body>
-    <div class="buttons">
-      <a id="btn_light_on" class="button1">Light ON</a>
-      <a id="btn_light_off" class="button2">Light OFF</a>
-      <a id="btn_get_cron" class="button2">GET CRON</a>
-    </div>
+    <div class="container">
+      <div class="buttons">
+        <a id="btn_light_on" class="button1">Light ON</a>
+        <a id="btn_light_off" class="button2">Light OFF</a>
+        <a id="btn_get_cron" class="button2">CRONTAB</a>
+      </div>
 
+      <div class="schedule_form_container">
+        <h3>Schedule</h3>
+        <form class="schedule_form" method="post" action="light.php">
+          <div class="row">
+            <div class="col">
+              <input id="h-on" type="text" class="form-control" placeholder="Hour" />
+            </div>
+            <div class="col">
+              <input id="m-on" type="text" class="form-control" placeholder="Minute" />
+            </div>
+            <div class="col-" style="text-align: center;">
+              <h3>~</h3>
+            </div>
+            <div class="col">
+              <input id="h-off" type="text" class="form-control" placeholder="Hour" />
+            </div>
+            <div class="col">
+              <input id="m-off" type="text" class="form-control" placeholder="Minute" />
+            </div>
+          </div>
+          <div class="buttons">
+            <a id="submit_schedule" class="button3">SCHEDULE</a>
+          </div>
+        </form>
+      </div>
 
-    <div class="response-container">
-      <form class="schedule_form">
-        First name:<br />
-        <input type="text" name="firstname" /><br />
-        Last name:<br />
-        <input type="text" name="lastname" />
-      </form>
+      <div class="response-container"></div>
     </div>
 
     <script>
-      var buttonLightON = document.getElementById("btn_light_on");
-      var buttonLightOFF = document.getElementById("btn_light_off");
-      var buttonGetCron = document.getElementById("btn_get_cron");
+      var buttonLightON = document.getElementById('btn_light_on');
+      var buttonLightOFF = document.getElementById('btn_light_off');
+      var buttonGetCron = document.getElementById('btn_get_cron');
+      var buttonSubmit = document.getElementById('submit_schedule');
 
       buttonLightON.onclick = function() {
         Light(true);
       };
       buttonLightOFF.onclick = function() {
         Light(false);
-      }
+      };
       buttonGetCron.onclick = function() {
         getCrontab();
-      }
-
+      };
+      buttonSubmit.onclick = function() {
+        submit();
+      };
 
       function Light(b) {
         var http = new XMLHttpRequest();
@@ -60,25 +84,47 @@
         http.send(params);
       }
 
-	function getCrontab(){
-
+      function getCrontab() {
         var http = new XMLHttpRequest();
-        var url = "light.php";
-        var params = "get = cron";
+        var url = 'light.php';
+        var params = 'get = cron';
 
-        http.open("POST", url, true);
+        http.open('POST', url, true);
 
-        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-        http.onreadystatechange = function()
-        {
-            if(http.readyState == 4 && http.status == 200) {
-                document.querySelector('.response-container').innerHTML = http.responseText;
-                console.log(http.responseText);
-            }
-        }
+        http.onreadystatechange = function() {
+          if (http.readyState == 4 && http.status == 200) {
+            document.querySelector('.response-container').innerHTML = http.responseText;
+            console.log(http.responseText);
+          }
+        };
         http.send(params);
-	}
+      }
+
+      function submit() {
+        var http = new XMLHttpRequest();
+        var url = 'light.php';
+        var params = 'h-on={$h-on}&m-on={$m-on}&h-off={$h-off}&m-off={$m-off}';
+
+        params = params
+          .replace('{$h-on}', document.getElementById('h-on').value)
+          .replace('{$m-on}', document.getElementById('m-on').value)
+          .replace('{$h-off}', document.getElementById('h-off').value)
+          .replace('{$m-off}', document.getElementById('m-off').value);
+
+        http.open('POST', url, true);
+
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange = function() {
+          if (http.readyState == 4 && http.status == 200) {
+            document.querySelector('.response-container').innerHTML = http.responseText;
+            console.log(http.responseText);
+          }
+        };
+        http.send(params);
+      }
     </script>
   </body>
 </html>
