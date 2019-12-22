@@ -9,7 +9,10 @@
     <div class="buttons">
       <a id="btn_light_on" class="button1">Light ON</a>
       <a id="btn_light_off" class="button2">Light OFF</a>
+      <a id="btn_get_cron" class="button2">GET CRON</a>
     </div>
+
+    
     <div class="response-container">
 
     </div>
@@ -17,8 +20,9 @@
 
 
     <script>
-      var buttonLightON = document.getElementById("button1");
-      var buttonLightOFF = document.getElementById("button2");
+      var buttonLightON = document.getElementById("btn_light_on");
+      var buttonLightOFF = document.getElementById("btn_light_off");
+      var buttonGetCron = document.getElementById("btn_get_cron");
 
       buttonLightON.onclick = function()
       {
@@ -27,6 +31,9 @@
       buttonLightOFF.onclick = function()
       {
         Light(false);
+      }
+      buttonGetCron.onclick = function() {
+        getCrontab();
       }
 
 
@@ -56,6 +63,26 @@
         }
         http.send(params);
       }
+
+	function getCrontab(){
+
+        var http = new XMLHttpRequest();
+        var url = "light.php";
+        var params = "get = cron";
+        
+        http.open("POST", url, true);
+
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        http.onreadystatechange = function()
+        {
+            if(http.readyState == 4 && http.status == 200) {
+                document.querySelector('.response-container').innerHTML = http.responseText;
+                console.log(http.responseText);
+            }
+        }
+        http.send(params);
+	}
     </script>
   </body>
 </html>
